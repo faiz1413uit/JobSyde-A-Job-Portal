@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html th:xmlns="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=home" />
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f0f0f0;
+        }
+        
+        .navbar {
+            background-color: #1da1f2;
+            padding: 15px 0;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #003ccd;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 30px;
+            border-radius: 4px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .logo img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #fff;
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            position: relative;
+            font-size: 1rem;
+            padding: 5px;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -3px;
+            width: 0;
+            height: 2px;
+            background-color: #fff;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            font-weight: bold;
+            color: #ffeb3b;
+        }
+        
+        .auth-btn .login-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        
+        .auth-btn .login-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="/images/logo.jpg" alt="Jobsyde Logo">
+                <span>JOBSYDE</span>
+            </div>
+			<ul class="nav-links" id="navLinks">
+				          <li><a th:href="@{/}" class="nav-link ">Home</a></li>
+				          <li><a th:href="@{/hire}" class="nav-link active">Book Services</a></li>
+				          <li><a th:href="@{/postjob}" class="nav-link">Post Jobs</a></li>
+				          <li><a th:href="@{/applyjob}" class="nav-link">Apply Jobs</a></li>
+				          <li><a th:href="@{/dashboard}" class="nav-link">Dashboard</a></li>
+				          <li><a th:href="@{/contact1}" class="nav-link ">Contact Us</a></li>
+				        </ul>
+            <div class="auth-btn">
+                <a href="/login" class="login-btn">Login / Register</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="bg-gray-100 min-h-screen">
+        <div class="container mx-auto px-4 py-8">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-4xl font-bold text-center mb-8 text-gray-800">Find Your Service Provider</h1>
+                
+                <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <form method="post" action="/searchEmployee">
+                        <label for="serviceSelect" class="block text-lg font-medium text-gray-700 mb-2">Select a Service</label>
+                        <select name="jobtype" id="serviceSelect" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-lg mb-4">
+                            <option value="">Choose a service...</option>
+                            <option value="mechanic">Mechanic</option>
+                            <option value="electrician">Electrician</option>
+                            <option value="plumber">Plumber</option>
+                            <option value="carpenter">Carpenter</option>
+                            <option value="driver">Driver</option>
+                            <option value="painter">Painter</option>
+                            <option value="housekeeping">Housekeeping</option>
+                            <option value="gardener">Gardener</option>
+                            <option value="cook">Cook</option>
+                            <option value="security_guard">Security Guard</option>
+                            <option value="delivery_person">Delivery Person</option>
+                            <option value="tailor">Tailor</option>
+                            <option value="cleaner">Cleaner</option>
+                            <option value="mason">Mason</option>
+                            <option value="helper">General Helper</option>
+                        </select>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label for="stateSelect" class="block text-lg font-medium text-gray-700 mb-2">Select State</label>
+                                <select id="stateSelect" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-lg">
+                                    <option value="">Choose a state...</option>
+                                    <option value="andhra_pradesh">Andhra Pradesh</option>
+                                    <option value="arunachal_pradesh">Arunachal Pradesh</option>
+                                    <option value="assam">Assam</option>
+                                    <option value="bihar">Bihar</option>
+                                    <option value="chhattisgarh">Chhattisgarh</option>
+                                    <option value="delhi">Delhi</option>
+                                    <option value="goa">Goa</option>
+                                    <option value="gujarat">Gujarat</option>
+                                    <option value="haryana">Haryana</option>
+                                    <option value="himachal_pradesh">Himachal Pradesh</option>
+                                    <option value="jharkhand">Jharkhand</option>
+                                    <option value="karnataka">Karnataka</option>
+                                    <option value="kerala">Kerala</option>
+                                    <option value="madhya_pradesh">Madhya Pradesh</option>
+                                    <option value="maharashtra">Maharashtra</option>
+                                    <option value="manipur">Manipur</option>
+                                    <option value="meghalaya">Meghalaya</option>
+                                    <option value="mizoram">Mizoram</option>
+                                    <option value="nagaland">Nagaland</option>
+                                    <option value="odisha">Odisha</option>
+                                    <option value="punjab">Punjab</option>
+                                    <option value="rajasthan">Rajasthan</option>
+                                    <option value="sikkim">Sikkim</option>
+                                    <option value="tamil_nadu">Tamil Nadu</option>
+                                    <option value="telangana">Telangana</option>
+                                    <option value="tripura">Tripura</option>
+                                    <option value="uttar_pradesh">Uttar Pradesh</option>
+                                    <option value="uttarakhand">Uttarakhand</option>
+                                    <option value="west_bengal">West Bengal</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="citySelect" class="block text-lg font-medium text-gray-700 mb-2">Select City</label>
+                                <select name="city" id="citySelect" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-lg">
+                                    <option value="">Choose a city...</option>
+                                    <!-- Cities will be populated dynamically based on state selection -->
+                                </select>
+                            </div>
+                        </div>
+
+                        <center>
+                            <input class="px-4 py-2 bg-blue-500 text-white font-bold rounded hover:bg-blue-600" type="submit" value="Search">
+                        </center>
+                    </form>
+                </div>
+
+                <div id="providersList" class="space-y-6">
+                    <div class="max-w-5xl mx-auto space-y-6">
+                        <div th:each="s : ${employee}" class="bg-white rounded-xl shadow-md p-6 relative">
+                            <div class="flex justify-between">
+                                <div>
+                                    <h2 class="text-xl font-semibold text-gray-800" th:text="${s.firstName} + ' ' + ${s.lastName}"></h2>
+                                    <p class="text-sm text-gray-500" th:text="${s.jobtype}"></p>
+                                </div>
+                                <span class="absolute top-6 right-6 bg-blue-500 text-white text-sm px-3 py-1 rounded-full" th:text="'Ratings: '+${s.rating}+'/5.0'"></span>
+                            </div>
+
+                            <div class="mt-4 flex justify-between text-sm text-gray-600">
+                                <p th:text="'Location: ' + ${s.city}"></p>
+                                <p th:text="'Experience: 2+ Years'"></p>
+                            </div>
+
+                            <p class="mt-4 text-sm text-gray-700" th:text="${s.description}"></p>
+                            <div class="mt-2 text-right">
+                                <button class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md"><a th:href="'tel:' + ${s.phn}" class="btn btn-primary">Call Now</a></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white">
+        <div class="container mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="mb-8 md:mb-0">
+                    <h3 class="text-2xl font-bold mb-6">JobSyde</h3>
+                    <p class="text-gray-400 mb-6">Connecting skilled professionals with quality job opportunities. Your trusted partner in career advancement.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-blue-500 transition-colors">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-pink-600 transition-colors">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-blue-700 transition-colors">
+                            <i class="fab fa-linkedin-in text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="mb-8 md:mb-0">
+                    <h3 class="text-xl font-semibold mb-6">Quick Links</h3>
+                    <ul class="space-y-4">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Find Jobs</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Post a Job</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+                <div class="mb-8 md:mb-0">
+                    <h3 class="text-xl font-semibold mb-6">Job Categories</h3>
+                    <ul class="space-y-4">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Construction</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Electrical</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Plumbing</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Manufacturing</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">View All Categories</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-semibold mb-6">Contact Us</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start space-x-3">
+                            <i class="fas fa-map-marker-alt mt-1 text-blue-500"></i>
+                            <span class="text-gray-400">123 Business Street, New York, NY 10001</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-phone text-blue-500"></i>
+                            <span class="text-gray-400">+1 (555) 123-4567</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-envelope text-blue-500"></i>
+                            <span class="text-gray-400">contact@jobsyde.com</span>
+                        </li>
+                        <li class="mt-6">
+                            <h4 class="text-lg font-semibold mb-3">Newsletter</h4>
+                            <div class="flex">
+                                <input type="email" placeholder="Your email" class="bg-gray-800 text-white px-4 py-2 rounded-l focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <button class="bg-blue-500 px-4 py-2 rounded-r hover:bg-blue-600 transition-colors">
+                                    Subscribe
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-800">
+            <div class="container mx-auto px-6 py-4">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="text-gray-400 text-sm">
+                        © 2024 JobSyde. All rights reserved.
+                    </div>
+                    <div class="mt-4 md:mt-0">
+                        <ul class="flex space-x-6 text-sm">
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Cookie Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const citiesByState = {
+            'andhra_pradesh': ['Visakhapatnam', 'Vijayawada', 'Guntur', 'Nellore', 'Kurnool'],
+            'arunachal_pradesh': ['Itanagar', 'Naharlagun', 'Pasighat', 'Tawang', 'Bomdila'],
+            'assam': ['Guwahati', 'Silchar', 'Dibrugarh', 'Jorhat', 'Nagaon'],
+            'bihar': ['Patna', 'Gaya', 'Bhagalpur', 'Muzaffarpur', 'Darbhanga'],
+            'chhattisgarh': ['Raipur', 'Bhilai', 'Bilaspur', 'Korba', 'Durg'],
+            'delhi': ['New Delhi', 'Delhi Cantonment', 'Noida', 'Gurgaon', 'Faridabad'],
+            'goa': ['Panaji', 'Margao', 'Vasco da Gama', 'Mapusa', 'Ponda'],
+            'gujarat': ['Ahmedabad', 'Surat', 'Vadodara', 'Rajkot', 'Bhavnagar'],
+            'haryana': ['Faridabad', 'Gurgaon', 'Panipat', 'Ambala', 'Yamunanagar'],
+            'himachal_pradesh': ['Shimla', 'Mandi', 'Solan', 'Dharamshala', 'Bilaspur'],
+            'jharkhand': ['Ranchi', 'Jamshedpur', 'Dhanbad', 'Bokaro', 'Hazaribagh'],
+            'karnataka': ['Bangalore', 'Mysore', 'Hubli', 'Mangalore', 'Belgaum'],
+            'kerala': ['Thiruvananthapuram', 'Kochi', 'Kozhikode', 'Thrissur', 'Kollam'],
+            'madhya_pradesh': ['Bhopal', 'Indore', 'Jabalpur', 'Gwalior', 'Ujjain'],
+            'maharashtra': ['Mumbai', 'Pune', 'Nagpur', 'Thane', 'Nashik'],
+            'manipur': ['Imphal', 'Thoubal', 'Bishnupur', 'Churachandpur', 'Ukhrul'],
+            'meghalaya': ['Shillong', 'Tura', 'Jowai', 'Nongstoin', 'Williamnagar'],
+            'mizoram': ['Aizawl', 'Lunglei', 'Saiha', 'Champhai', 'Kolasib'],
+            'nagaland': ['Kohima', 'Dimapur', 'Mokokchung', 'Tuensang', 'Wokha'],
+            'odisha': ['Bhubaneswar', 'Cuttack', 'Rourkela', 'Brahmapur', 'Sambalpur'],
+            'punjab': ['Ludhiana', 'Amritsar', 'Jalandhar', 'Patiala', 'Bathinda'],
+            'rajasthan': ['Jaipur', 'Jodhpur', 'Kota', 'Bikaner', 'Ajmer'],
+            'sikkim': ['Gangtok', 'Namchi', 'Mangan', 'Gyalshing', 'Singtam'],
+            'tamil_nadu': ['Chennai', 'Coimbatore', 'Madurai', 'Tiruchirappalli', 'Salem'],
+            'telangana': ['Hyderabad', 'Warangal', 'Nizamabad', 'Karimnagar', 'Khammam'],
+            'tripura': ['Agartala', 'Udaipur', 'Dharmanagar', 'Kailasahar', 'Belonia'],
+            'uttar_pradesh': ['Lucknow', 'Kanpur', 'Agra', 'Varanasi', 'Meerut', 'Prayagraj'],
+            'uttarakhand': ['Dehradun', 'Haridwar', 'Roorkee', 'Haldwani', 'Rudrapur'],
+            'west_bengal': ['Kolkata', 'Howrah', 'Durgapur', 'Asansol', 'Siliguri']
+        };
+
+        function updateCities() {
+            const stateSelect = document.getElementById('stateSelect');
+            const citySelect = document.getElementById('citySelect');
+            const selectedState = stateSelect.value;
+
+            // Clear existing options
+            citySelect.innerHTML = '<option value="">Choose a city...</option>';
+
+            if (selectedState && citiesByState[selectedState]) {
+                citiesByState[selectedState].forEach(city => {
+                    const option = document.createElement('option');
+                    option.value = city.toLowerCase().replace(/\s+/g, '_');
+                    option.textContent = city;
+                    citySelect.appendChild(option);
+                });
+            }
+        }
+
+        // Add event listener when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const stateSelect = document.getElementById('stateSelect');
+            if (stateSelect) {
+                stateSelect.addEventListener('change', updateCities);
+            }
+        });
+    </script>
+</body>
+</html>

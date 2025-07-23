@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html th:xmlns="www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=home"/>
+  <link rel="icon" th:href="@{images/logo.jpg}" type="image/x-icon" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>JobSyde - Your Career Partner</title>
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --secondary-color: #1e40af;
+      --accent-color: #f59e0b;
+      --text-color: #1f2937;
+      --light-bg: #f3f4f6;
+      --white: #ffffff;
+    }
+    
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f0f0;
+    }
+    
+    .navbar {
+      background-color: #1da1f2;
+      padding: 15px 0;
+    }
+    
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background-color: #003ccd;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 30px;
+      border-radius: 4px;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    
+    .logo img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #fff;
+      margin-right: 10px;
+    }
+    
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .nav-link {
+      color: white;
+      text-decoration: none;
+      position: relative;
+      font-size: 1rem;
+      padding: 5px;
+      transition: color 0.3s ease;
+    }
+    
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0;
+      height: 2px;
+      background-color: #fff;
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
+    }
+    
+    .nav-link.active {
+      font-weight: bold;
+      color: #ffeb3b;
+    }
+    
+    .auth-btn .login-btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    
+    .auth-btn .login-btn:hover {
+      background-color: #45a049;
+    }
+
+    /* Mobile Menu Button */
+    .menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      z-index: 1001;
+    }
+
+    .menu-toggle i {
+      display: none;
+    }
+
+    .menu-toggle .fa-bars {
+      display: block;
+    }
+
+    .menu-toggle.active .fa-bars {
+      display: none;
+    }
+
+    .menu-toggle.active .fa-times {
+      display: block;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .nav-container {
+        padding: 15px 20px;
+      }
+
+      .nav-links {
+        gap: 15px;
+      }
+
+      .logo img {
+        width: 50px;
+        height: 50px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-container {
+        position: relative;
+      }
+
+      .menu-toggle {
+        display: block;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100vh;
+        background-color: #003ccd;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+        transition: right 0.3s ease;
+        z-index: 1000;
+      }
+
+      .nav-links.active {
+        right: 0;
+      }
+
+      .nav-link {
+        font-size: 1.2rem;
+      }
+
+      .auth-btn {
+        margin-left: auto;
+      }
+
+      .logo {
+        margin-right: auto;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo span {
+        display: none;
+      }
+
+      .logo img {
+        margin-right: 0;
+      }
+
+      .nav-container {
+        padding: 10px 15px;
+      }
+
+      .auth-btn .login-btn {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+      }
+    }
+
+    .banner {
+      min-height: 100vh;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(245, 158, 11, 0.1));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-top: -20px;
+      text-align: center;
+    }
+
+    .nav-text {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .nav-text-1 {
+      font-size: 4rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .nav-text-12 {
+      color: var(--primary-color);
+      position: relative;
+      display: inline-block;
+    }
+
+    .nav-text-12::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background-color: var(--accent-color);
+      border-radius: 4px;
+      transform: translateY(20px);
+    }
+
+    .nav-text-2 {
+      font-size: 2rem;
+      color: var(--text-color);
+      margin-bottom: 2rem;
+    }
+
+    .get-an-appoinment {
+      margin-top: 2rem;
+    }
+
+    .top-sub-btn {
+      background-color: var(--primary-color);
+      color: var(--white);
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .top-sub-btn:hover {
+      background-color: var(--secondary-color);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .nav-text-1, .nav-text-2, .get-an-appoinment {
+      animation: fadeIn 1s ease-out;
+    }
+
+    /* Search Container */
+    .search-container {
+      display: flex;
+      max-width: 600px;
+      margin: 2rem auto;
+      background: var(--white);
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 1rem;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+    }
+
+    .search-btn {
+      background-color: var(--primary-color);
+      color: var(--white);
+      padding: 0 1.5rem;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .search-btn:hover {
+      background-color: var(--secondary-color);
+    }
+
+    /* Stats Container */
+    .stats-container {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 1.5rem;
+      background: var(--white);
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .stat-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .stat-item i {
+      font-size: 2rem;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-number {
+      display: block;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .stat-text {
+      display: block;
+      font-size: 1rem;
+      color: var(--text-color);
+    }
+
+    /* Job Icons Hover Effects */
+    .service-icon {
+      position: relative;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .service-icon .w-24 {
+      position: relative;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 2px solid transparent;
+      background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .service-icon:hover .w-24 {
+      transform: scale(1.1) rotate(5deg);
+      border-color: var(--primary-color);
+      box-shadow: 0 8px 15px rgba(37, 99, 235, 0.3);
+    }
+
+    .service-icon .w-24::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(245, 158, 11, 0.1));
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .service-icon:hover .w-24::before {
+      opacity: 1;
+    }
+
+    .service-icon i {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      color: var(--primary-color);
+    }
+
+    .service-icon:hover i {
+      transform: scale(1.2) rotate(-5deg);
+      color: var(--secondary-color);
+      text-shadow: 0 0 10px rgba(37, 99, 235, 0.3);
+    }
+
+    .service-icon span {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      color: var(--text-color);
+      font-weight: 500;
+    }
+
+    .service-icon:hover span {
+      transform: translateY(-5px);
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);
+      }
+      70% {
+        box-shadow: 0 0 0 10px rgba(37, 99, 235, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
+      }
+    }
+
+    .service-icon:hover .w-24 {
+      animation: pulse 1.5s infinite;
+    }
+
+    /* Add a subtle floating effect */
+    @keyframes float {
+      0% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-5px);
+      }
+      100% {
+        transform: translateY(0px);
+      }
+    }
+
+    .service-icon {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .service-icon:hover {
+      animation: none;
+    }
+
+    /* Responsive Design Updates */
+    @media (max-width: 768px) {
+      .stats-container {
+        gap: 1rem;
+      }
+      
+      .stat-item {
+        padding: 1rem;
+      }
+      
+      .stat-number {
+        font-size: 1.5rem;
+      }
+      
+      .search-container {
+        margin: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <img src="./images/logo.jpg" alt="Jobsyde Logo">
+        <span>JOBSYDE</span>
+      </div>
+
+      <div class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+        <i class="fas fa-times"></i>
+      </div>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a th:href="@{/}" class="nav-link active">Home</a></li>
+        <li><a th:href="@{/hire}" class="nav-link">Book Services</a></li>
+        <li><a th:href="@{/postjob}" class="nav-link">Post Jobs</a></li>
+        <li><a th:href="@{/applyjob}" class="nav-link">Apply Jobs</a></li>
+        <li><a th:href="@{/dashboard}" class="nav-link">Dashboard</a></li>
+        <li><a th:href="@{/contact1}" class="nav-link">Contact Us</a></li>
+      </ul>
+      <div class="auth-btn">
+		<a th:href="@{/login}" class="login-btn" id="login">Login / Register</a>
+		</div>
+		
+    </div>
+  </nav>
+
+  <div class="banner">
+    <div class="nav-text">
+      <div class="nav-text-1">
+        <span class="nav-text-11">Find Your</span>
+        <span class="nav-text-12">DREAM JOB</span>
+      </div>
+      <div class="nav-text-2">
+        <span class="nav-text-11">with JobSyde - Where Careers Take Flight</span>
+      </div>
+      <form method="post" action="/search">
+        <div class="search-container">
+          <input type="text" placeholder="Search for jobs or companies" class="search-input" name="temp">
+          <button class="search-btn" type="submit"><i class="fas fa-search"></i></button>
+        </div>
+      </form>
+      <div class="stats-container">
+        <div class="stat-item">
+          <i class="fas fa-briefcase"></i>
+          <span class="stat-number">10,000+</span>
+          <span class="stat-text">Active Jobs</span>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-building"></i>
+          <span class="stat-number">500+</span>
+          <span class="stat-text">Companies</span>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-users"></i>
+          <span class="stat-number">50,000+</span>
+          <span class="stat-text">Happy Candidates</span>
+        </div>
+      </div>
+      <span class="get-an-appoinment">
+        <button class="top-sub-btn"><i class="fas fa-calendar-check"></i> Get an Appointment</button>
+      </span>
+    </div>
+  </div>
+
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    menuToggle.addEventListener('click', () => {
+      menuToggle.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        menuToggle.classList.remove('active');
+        navLinks.classList.remove('active');
+      });
+    });
+  </script>
+
+  <div class="container mx-auto px-4 py-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 justify-items-center">
+      <!-- Construction -->
+      <div class="service-icon flex flex-col items-center">
+        <div class="w-24 h-24 rounded-full border-2 border-blue-300 flex items-center justify-center bg-white hover:border-blue-500 cursor-pointer shadow-md">
+          <i class="fas fa-hard-hat text-3xl text-blue-600"></i>
+        </div>
+        <span class="mt-3 text-sm font-medium text-gray-700 text-center">Construction</span>
+      </div>
+
+      <!-- Electrician -->
+      <div class="service-icon flex flex-col items-center">
+        <div class="w-24 h-24 rounded-full border-2 border-blue-300 flex items-center justify-center bg-white hover:border-blue-500 cursor-pointer shadow-md">
+          <i class="fas fa-bolt text-3xl text-blue-600"></i>
+        </div>
+        <span class="mt-3 text-sm font-medium text-gray-700 text-center">Electrician</span>
+      </div>
+
+      <!-- Plumbing -->
+      <div class="service-icon flex flex-col items-center">
+        <div class="w-24 h-24 rounded-full border-2 border-blue-300 flex items-center justify-center bg-white hover:border-blue-500 cursor-pointer shadow-md">
+          <i class="fas fa-wrench text-3xl text-blue-600"></i>
+        </div>
+        <span class="mt-3 text-sm font-medium text-gray-700 text-center">Plumbing</span>
+      </div>
+
+      <!-- Welding -->
+      <div class="service-icon flex flex-col items-center">
+        <div class="w-24 h-24 rounded-full border-2 border-blue-300 flex items-center justify-center bg-white hover:border-blue-500 cursor-pointer shadow-md">
+          <i class="fas fa-fire text-3xl text-blue-600"></i>
+        </div>
+        <span class="mt-3 text-sm font-medium text-gray-700 text-center">Welding</span>
+      </div>
+
+      <!-- Carpentry -->
+      <div class="service-icon flex flex-col items-center">
+        <div class="w-24 h-24 rounded-full border-2 border-blue-300 flex items-center justify-center bg-white hover:border-blue-500 cursor-pointer shadow-md">
+          <i class="fas fa-hammer text-3xl text-blue-600"></i>
+        </div>
+        <span class="mt-3 text-sm font-medium text-gray-700 text-center">Carpentry</span>
+      </div>
+
+      <!-- HVAC -->
+      <div class="service-icon flex flex-col items-center">
+        <div class="w-24 h-24 rounded-full border-2 border-blue-300 flex items-center justify-center bg-white hover:border-blue-500 cursor-pointer shadow-md">
+          <i class="fas fa-temperature-high text-3xl text-blue-600"></i>
+        </div>
+        <span class="mt-3 text-sm font-medium text-gray-700 text-center">HVAC</span>
+      </div>
+
+      <!-- Painting -->
+      <div class="service-icon flex flex-col items-center">
+        <div class="w-24 h-24 rounded-full border-2 border-blue-300 flex items-center justify-center bg-white hover:border-blue-500 cursor-pointer shadow-md">
+          <i class="fas fa-paint-roller text-3xl text-blue-600"></i>
+        </div>
+        <span class="mt-3 text-sm font-medium text-gray-700 text-center">Painting</span>
+      </div>
+
+      <!-- Landscaping -->
+      <div class="service-icon flex flex-col items-center">
+        <div class="w-24 h-24 rounded-full border-2 border-blue-300 flex items-center justify-center bg-white hover:border-blue-500 cursor-pointer shadow-md">
+          <i class="fas fa-tree text-3xl text-blue-600"></i>
+        </div>
+        <span class="mt-3 text-sm font-medium text-gray-700 text-center">Landscaping</span>
+      </div>
+
+      <!-- Manufacturing -->
+      <div class="service-icon flex flex-col items-center">
+        <div class="w-24 h-24 rounded-full border-2 border-blue-300 flex items-center justify-center bg-white hover:border-blue-500 cursor-pointer shadow-md">
+          <i class="fas fa-industry text-3xl text-blue-600"></i>
+        </div>
+        <span class="mt-3 text-sm font-medium text-gray-700 text-center">Manufacturing</span>
+      </div>
+
+      <!-- Show More -->
+      <div class="service-icon flex flex-col items-center">
+        <div class="w-24 h-24 rounded-full border-2 border-blue-300 flex items-center justify-center bg-white hover:border-blue-500 cursor-pointer shadow-md group">
+          <div class="flex flex-col items-center justify-center">
+            <i class="fas fa-ellipsis-h text-3xl text-blue-600 group-hover:hidden"></i>
+          </div>
+        </div>
+        <span class="mt-3 text-sm font-medium text-gray-700 text-center">Show More</span>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-gray-900 text-white">
+    <!-- Main Footer -->
+    <div class="container mx-auto px-6 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Company Info -->
+        <div class="mb-8 md:mb-0">
+          <h3 class="text-2xl font-bold mb-6">JobSyde</h3>
+          <p class="text-gray-400 mb-6">Connecting skilled professionals with quality job opportunities. Your trusted partner in career advancement.</p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-blue-500 transition-colors">
+              <i class="fab fa-facebook-f text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">
+              <i class="fab fa-twitter text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-pink-600 transition-colors">
+              <i class="fab fa-instagram text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-blue-700 transition-colors">
+              <i class="fab fa-linkedin-in text-xl"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="mb-8 md:mb-0">
+          <h3 class="text-xl font-semibold mb-6">Quick Links</h3>
+          <ul class="space-y-4">
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Find Jobs</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Post a Job</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+          </ul>
+        </div>
+
+        <!-- Job Categories -->
+        <div class="mb-8 md:mb-0">
+          <h3 class="text-xl font-semibold mb-6">Job Categories</h3>
+          <ul class="space-y-4">
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Construction</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Electrical</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Plumbing</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Manufacturing</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">View All Categories</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Info -->
+        <div>
+          <h3 class="text-xl font-semibold mb-6">Contact Us</h3>
+          <ul class="space-y-4">
+            <li class="flex items-start space-x-3">
+              <i class="fas fa-map-marker-alt mt-1 text-blue-500"></i>
+              <span class="text-gray-400">123 Business Street, New York, NY 10001</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <i class="fas fa-phone text-blue-500"></i>
+              <span class="text-gray-400">+1 (555) 123-4567</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <i class="fas fa-envelope text-blue-500"></i>
+              <span class="text-gray-400">contact@jobsyde.com</span>
+            </li>
+            <li class="mt-6">
+              <h4 class="text-lg font-semibold mb-3">Newsletter</h4>
+              <div class="flex">
+                <input type="email" placeholder="Your email" class="bg-gray-800 text-white px-4 py-2 rounded-l focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button class="bg-blue-500 px-4 py-2 rounded-r hover:bg-blue-600 transition-colors">
+                  Subscribe
+                </button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="border-t border-gray-800">
+      <div class="container mx-auto px-6 py-4">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="text-gray-400 text-sm">
+            © 2025 JobSyde. All rights reserved.
+          </div>
+          <div class="mt-4 md:mt-0">
+            <ul class="flex space-x-6 text-sm">
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Cookie Policy</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+	
+	
+	
+  </footer>
+</body>
+</html>
